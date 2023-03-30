@@ -37,7 +37,7 @@ def main():
     parser.add_argument('--synb0', metavar='raw/stripped/off', default='raw', help='Run topup with a synthetic b0 generated with Synb0-DisCo if no reverse phase encoded images are supplied and a raw or skull stripped T1 is supplied (default = raw)')
     parser.add_argument('--topup_first_b0s_only', action='store_true', help='Run topup with only the first b0 of each image when images have >1 b0 volume (default = run with ALL b0 volumes)')
     parser.add_argument('--extra_topup_args', metavar='string', default='', help='Extra arguments to pass to topup as a list separated by +\'s with no spaces (i.e., --extra_topup_args=--scale=1+--regrid=0)')
-    parser.add_argument('--eddy_cuda', metavar='8.0/9.1/off', default='off', help='Run eddy with CUDA 8.0 or 9.1 or without GPU acceleration and with OPENMP only (default = off)')
+    parser.add_argument('--eddy_cuda', metavar='8.0/9.1/10.2/off', default='off', help='Run eddy with CUDA 8.0 or 9.1 or without GPU acceleration and with OPENMP only (default = off)')
     parser.add_argument('--eddy_mask', metavar='on/off', default='on', help='Use a brain mask for eddy (default = on)')
     parser.add_argument('--eddy_bval_scale', metavar='N/off', default='off', help='Positive number with which to scale b-values for eddy only in order to perform distortion correction on super low shells (default = off)')
     parser.add_argument('--extra_eddy_args', metavar='string', default='', help='Extra arguments to pass to eddy as a list separated by +\'s with no spaces (i.e., --extra_eddy_args=--data_is_shelled+--ol_nstd=1)')
@@ -150,6 +150,8 @@ def main():
         params['eddy_cuda_version'] = 8.0
     elif args.eddy_cuda == '9.1':
         params['eddy_cuda_version'] = 9.1
+    elif args.eddy_cuda == '10.2':
+        params['eddy_cuda_version'] = 10.2
     elif args.eddy_cuda == 'off':
         params['eddy_cuda_version'] = 0
     else:
